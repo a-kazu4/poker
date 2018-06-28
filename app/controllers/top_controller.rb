@@ -5,10 +5,20 @@ class TopController < ApplicationController
   end
 
   def judge
-    @hands = CardForm.new(params[:hands])
+    array_hands = card_form_params[:hands].split(' ')
+    @hands = CardForm.new(array_hands)
+
+    error_messages = @hands.valid?
+    error_messages.each_with_index {|message, i| flash[i] = message }
+
+    flash[:hands] = @hands.check_hands
+
     redirect_to top_url
-    flash[:hoge] = '改行したい<br>改行できた<br>やったー!'
-    flash[:hogehoge] = "Successfully created..."
+  end
+
+  private
+  def card_form_params
+    params.require(:card_form).permit(:hands)
   end
 end
 
