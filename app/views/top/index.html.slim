@@ -1,0 +1,6 @@
+= form_tag(top_index_path, method: :post, class: 'box') do
+  = text_field :poker, :hands, placeholder: 'D2 S12 D3 H14 H12'
+  = submit_tag 'check', class: 'btn'
+
+  - flash.each do |key, value|
+    = content_tag(:div, value, class: "#{key}")
