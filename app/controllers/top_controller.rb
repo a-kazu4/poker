@@ -1,17 +1,17 @@
 class TopController < ApplicationController
 
   def new
-    @hands = CardForm.new
+    @card_form = CardForm.new
   end
 
   def judge
     array_hands = card_form_params[:hands].split(' ')
-    @hands = CardForm.new(array_hands)
+    @card_form = CardForm.new(array_hands)
 
-    error_messages = @hands.valid?
+    error_messages = @card_form.valid?
     error_messages.each_with_index {|message, i| flash[i] = message }
 
-    flash[:hands] = @hands.check_hands if error_messages.empty?
+    flash[:hands] = @card_form.check_hands if error_messages.empty?
 
     redirect_to top_url
   end
