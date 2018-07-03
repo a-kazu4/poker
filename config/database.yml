@@ -15,11 +15,11 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: i04npdb
   password: atobarai
-  schema_search_path: poker
 
 development:
   <<: *default
   database: poker_development
+  schema_search_path: poker
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
