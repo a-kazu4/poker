@@ -11,7 +11,7 @@ class TopController < ApplicationController
     error_messages = @hands.valid?
     error_messages.each_with_index {|message, i| flash[i] = message }
 
-    flash[:hands] = @hands.check_hands
+    flash[:hands] = @hands.check_hands if error_messages.empty?
 
     redirect_to top_url
   end
