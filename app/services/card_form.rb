@@ -51,7 +51,7 @@ class CardForm
     return 'ストレート' if count == 5
 
     split_cards_count = number_cards.group_by(&:itself).map{ |k, v| [k, v.count] }.to_h
-    return 'フォーカード' if split_cards_count.values.include?(4)
+    return 'フォー・オブ・ア・カインド' if split_cards_count.values.include?(4)
     return 'フルハウス' if split_cards_count.values.sort & [2, 3] == [2, 3]
     return 'スリーカード' if split_cards_count.values.include?(3)
     return 'ツーペア' if split_cards_count.values.sort == [1, 2, 2]
