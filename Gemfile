@@ -42,6 +42,9 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-doc'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails', '~> 4.4.1'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -59,6 +62,7 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'faker'
 end
 
 gem 'html2slim'
