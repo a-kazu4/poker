@@ -5,7 +5,7 @@ class TopController < ApplicationController
   end
 
   def judge
-    array_hands = card_form_params[:hands].split(' ')
+    array_hands = card_form_params[:hands].split
     @card_form = CardForm.new(array_hands)
 
     error_messages = @card_form.valid?
