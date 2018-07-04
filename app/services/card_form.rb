@@ -33,22 +33,22 @@ class CardForm
       number_cards << hand[1]
     end
 
+    serial_number_count = 0
     number_cards = number_cards.map{|num| num.to_i }.sort
-
-    return 'フラッシュ' if suit_cards.uniq.size == 1
-
-    count = 0
     number_cards.each_with_index do |num, i|
-      count += 1 if number_cards[0]+i == num
+      serial_number_count += 1 if number_cards[0]+i == num
     end
-
-    return 'ストレート' if count == 5
 
     split_cards_count = number_cards.group_by(&:itself).map{ |k, v| [k, v.count] }.to_h
 
+    if suit_cards.uniq.size == 1 && serial_number_count == 5
+      return 'ストレートフラッシュ'
+    end
     return 'フォー・オブ・ア・カインド' if split_cards_count.values.include?(4)
     return 'フルハウス' if split_cards_count.values.sort & [2, 3] == [2, 3]
-    return 'スリーカード' if split_cards_count.values.include?(3)
+    return 'フラッシュ' if suit_cards.uniq.size == 1
+    return 'ストレート' if serial_number_count == 5
+    return 'スリー・オブ・ア・カインド' if split_cards_count.values.include?(3)
     return 'ツーペア' if split_cards_count.values.sort == [1, 2, 2]
     return 'ワンペア' if split_cards_count.values.sort == [1, 1, 1, 2]
     return 'ハイカード'
