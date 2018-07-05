@@ -3,7 +3,7 @@ require 'rails_helper'
 describe CardForm do
   let(:card_form) { CardForm.new }
   let(:straight_flush) { 'C7 C6 C5 C4 C3' }
-  let(:four_of_a_kind) { 'C10 D10 H10 S10' }
+  let(:four_of_a_kind) { 'C10 D10 H10 S10 D5' }
   let(:full_house) { 'S10 H10 D10 S4 D4' }
   let(:flush) { 'H1 H12 H10 H5 H3' }
   let(:straight) { 'S8 S7 H6 H5 S4' }
@@ -62,48 +62,58 @@ describe CardForm do
   end
 
   describe 'method check_hands' do
+
     it "check_hands is 'ストレートフラッシュ'" do
       card_form.instance_variable_set(:@hands, straight_flush.split)
+      expect(card_form.valid?).to be_empty
       expect(card_form.check_hands).to eq 'ストレートフラッシュ'
     end
 
     it "check_hands is 'フォー・オブ・ア・カインド'" do
       card_form.instance_variable_set(:@hands, four_of_a_kind.split)
+      expect(card_form.valid?).to be_empty
       expect(card_form.check_hands). to eq 'フォー・オブ・ア・カインド'
     end
 
     it "check_hands is 'フルハウス'" do
       card_form.instance_variable_set(:@hands, full_house.split)
+      expect(card_form.valid?).to be_empty
       expect(card_form.check_hands). to eq 'フルハウス'
     end
 
     it "check_hands is 'フラッシュ'" do
       card_form.instance_variable_set(:@hands, flush.split)
+      expect(card_form.valid?).to be_empty
       expect(card_form.check_hands). to eq 'フラッシュ'
     end
 
     it "check_hands is 'ストレート'" do
       card_form.instance_variable_set(:@hands, straight.split)
+      expect(card_form.valid?).to be_empty
       expect(card_form.check_hands). to eq 'ストレート'
     end
 
     it "check_hands is 'スリー・オブ・ア・カインド'" do
       card_form.instance_variable_set(:@hands, three_of_a_kind.split)
+      expect(card_form.valid?).to be_empty
       expect(card_form.check_hands). to eq 'スリー・オブ・ア・カインド'
     end
 
     it "check_hands is 'ツーペア'" do
       card_form.instance_variable_set(:@hands, two_pair.split)
+      expect(card_form.valid?).to be_empty
       expect(card_form.check_hands). to eq 'ツーペア'
     end
 
     it "check_hands is 'ワンペア'" do
       card_form.instance_variable_set(:@hands, one_pair.split)
+      expect(card_form.valid?).to be_empty
       expect(card_form.check_hands). to eq 'ワンペア'
     end
 
     it "check_hands is 'ハイカード'" do
       card_form.instance_variable_set(:@hands, high_card.split)
+      expect(card_form.valid?).to be_empty
       expect(card_form.check_hands). to eq 'ハイカード'
     end
   end
