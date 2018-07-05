@@ -12,7 +12,7 @@ class CardForm
     return error_messages << 'カードが重複しています。' if @hands.size - @hands.uniq.size >= 1
     return error_messages << '5つのカード指定文字を半角スペース区切りで入力してください。（例：S1 H3 D9 C13 S11）' if @hands.size != 5
 
-    regex = /([SHDC]{1})(1[0123]|[1-9])$/
+    regex = /^([SHDC]{1})(1[0123]|[1-9])$/
 
     @hands.each_with_index do |hand, i|
       error_messages << "#{i+1}番目のカード指定文字が不正です。（#{hand}）" if hand.scan(regex).empty?
