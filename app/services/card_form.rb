@@ -44,10 +44,13 @@ class CardForm
     if suit_cards.uniq.size == 1 && serial_number_count == 5
       return 'ストレートフラッシュ'
     end
+    if suit_cards.uniq.size == 1 && number_cards == [1, 10, 11, 12, 13]
+      return 'ストレートフラッシュ'
+    end
     return 'フォー・オブ・ア・カインド' if split_cards_count.values.include?(4)
     return 'フルハウス' if split_cards_count.values.sort & [2, 3] == [2, 3]
     return 'フラッシュ' if suit_cards.uniq.size == 1
-    return 'ストレート' if serial_number_count == 5
+    return 'ストレート' if serial_number_count == 5 || number_cards == [1, 10, 11, 12, 13]
     return 'スリー・オブ・ア・カインド' if split_cards_count.values.include?(3)
     return 'ツーペア' if split_cards_count.values.sort == [1, 2, 2]
     return 'ワンペア' if split_cards_count.values.sort == [1, 1, 1, 2]
