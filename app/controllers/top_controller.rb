@@ -1,11 +1,27 @@
 class TopController < ApplicationController
-  def index
 
+  def new
+    @card_form = CardForm.new
   end
 
-  def create
-    redirect_to top_index_url
-    flash[:hoge] = '改行したい<br>改行できた<br>やったー!'
-    flash[:hogehoge] = "Successfully created..."
+  def judge
+    array_hands = card_form_params[:hands].split
+    @card_form = CardForm.new(array_hands)
+
+    error_messages = @card_form.valid?
+
+    if error_messages.empty?
+      flash[:hands] = @card_form.check_hands
+      return redirect_to top_url
+    else
+      error_messages.each_with_index {|message, i| flash[i] = message }
+      return render :new
+    end
+  end
+
+  private
+  def card_form_params
+    params.require(:card_form).permit(:hands)
   end
 end
+

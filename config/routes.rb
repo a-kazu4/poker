@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
-  root 'top#index'
-  resources :top, only:[:index, :create]
+  root 'top#new'
+  get 'top' => 'top#new'
+  post 'judge' => 'top#judge'
+
+  mount API::Base => '/'
 end
+
+
