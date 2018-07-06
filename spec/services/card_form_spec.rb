@@ -49,10 +49,10 @@ describe CardForm do
       end
     end
 
-    it "first error in error_messages has '5つのカード指定文字を半角スペース区切りで入力してください。（例：S1 H3 D9 C13 S11）'" do
+    it "error_messages has '半角英字大文字のスート（S,H,D,C）と数字（1〜13）の組み合わせでカードを指定してください。'" do
       invalid_hands = ["K7", "H63", "T59", "L4", "C30"]
       card_form.instance_variable_set(:@hands, invalid_hands)
-      expect(card_form.valid?[0]).to eq '5つのカード指定文字を半角スペース区切りで入力してください。（例：S1 H3 D9 C13 S11）'
+      expect(card_form.valid?.include?('半角英字大文字のスート（S,H,D,C）と数字（1〜13）の組み合わせでカードを指定してください。')).to be true
     end
 
     it "error_messages has nothing" do
