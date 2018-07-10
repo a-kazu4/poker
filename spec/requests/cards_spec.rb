@@ -5,6 +5,7 @@ describe 'API_Cards', type: :request do
     let(:valid_path) { '/api/v1/cards/check' }
     let(:invalid_path) { '/api/v1' }
     let(:valid_params) { { "cards": [ "H1 H13 H12 H11 H10", "H9 C9 S9 H2 C2", "C13 D12 C11 H8 H7" ] } }
+    let(:invalid_params) { { } }
 
     context 'normal' do
       it 'has a 201 status code' do
@@ -19,6 +20,14 @@ describe 'API_Cards', type: :request do
         expect(response.status).to eq 500
         expect(response.body).to eq "{\"error\":[{\"msg\":\"不正なURLです。\"}]}"
       end
+
+      it 'has a 500 status code with invalid_params' do
+        post valid_path, params: invalid_params
+        expect(response.status).to eq 500
+        expect(response.body).to eq "{\"error\":[{\"msg\":\"不正なリクエストです。\"}]}"
+      end
+
+
     end
   end
 end
