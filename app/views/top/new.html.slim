@@ -3,5 +3,8 @@
     = f.text_field :hands, placeholder: 'D2 S12 D3 H14 H12'
     = f.submit 'check', class: 'btn'
 
-  - flash.each do |key, value|
-    = content_tag(:div, value, class: "#{key}")
+  - if flash.now[:errors].present?
+    - flash.now[:errors].each do |result|
+      = result
+  - else
+    = flash[:hands]
