@@ -54,7 +54,7 @@ module API
               if strength_array.min == strength_of_hands[result[:hand]]
                 result[:best] = true
               else
-                result[:false] = false
+                result[:best] = false
               end
             end
           end
