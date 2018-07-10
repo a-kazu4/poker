@@ -27,6 +27,7 @@ describe 'API_Cards', type: :request do
         expect(response.body).to eq "{\"error\":[{\"msg\":\"不正なリクエストです。\"}]}"
       end
 
+      
 
     end
   end
