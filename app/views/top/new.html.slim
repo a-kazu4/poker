@@ -5,6 +5,6 @@
 
   - if flash.now[:errors].present?
     - flash.now[:errors].each do |result|
-      = result
+      p = result
   - else
-    = flash[:hands]
+    p = flash[:hands]
