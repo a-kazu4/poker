@@ -9,6 +9,7 @@ module API
           errors = []
           results = []
           strength_array = []
+
           
           cards = params[:cards]
 
