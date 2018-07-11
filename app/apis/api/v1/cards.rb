@@ -2,23 +2,15 @@ module API
   module V1
     class Cards < Grape::API
       desc 'Return hands'
+      include CardHelper
       resource :cards do
         post 'check' do
           judge_results = {}
           errors = []
           results = []
           strength_array = []
-          strength_of_hands = { "ストレートフラッシュ" => 1,
-                                "フォー・オブ・ア・カインド" => 2,
-                                "フルハウス" => 3,
-                                "フラッシュ" => 4,
-                                "ストレート" => 5,
-                                "スリー・オブ・ア・カインド" => 6,
-                                "ツーペア" => 7,
-                                "ワンペア" => 8,
-                                "ハイカード" => 9,
-                              }
 
+          
           cards = params[:cards]
 
           cards.each do |card|
@@ -29,11 +21,12 @@ module API
 
             if error_messages.empty?
               result_hash = {}
+              hand_name = card_form.check_hands
 
               result_hash[:card] = card
-              result_hash[:hand] = card_form.check_hands
+              result_hash[:hand] = CardHelper::HAND_NAME[hand_name]
 
-              strength_num = strength_of_hands[result_hash[:hand]]
+              strength_num = CardHelper::HAND_STRENGTH[hand_name]
               strength_array << strength_num
 
               results.push(result_hash)
@@ -51,10 +44,11 @@ module API
 
           unless results.empty?
             results.each do |result|
-              if strength_array.min == strength_of_hands[result[:hand]]
+              hand_name = CardHelper::HAND_NAME.key(result[:hand])
+              if strength_array.min == CardHelper::HAND_STRENGTH[hand_name]
                 result[:best] = true
               else
-                result[:false] = false
+                result[:best] = false
               end
             end
           end
